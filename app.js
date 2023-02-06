@@ -60,7 +60,7 @@ class Chatbox {
             textField.value = '';
 
             if (e.data === 'Das Wetter in Stuttgart ist:') {
-                const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?id=2825297&appid={API-Key}';
+                const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?id=2825297&appid=e3b561757bafc55f9075e613caf26f7b';
                 fetch(weatherUrl, {method: 'GET', headers: {}})
                     .then(res => res.json())
                     .then(data => {
