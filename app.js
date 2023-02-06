@@ -1,3 +1,6 @@
+const ws = new WebSocket("ws://localhost:8080");
+
+
 class Chatbox {
 
     constructor() {
@@ -5,11 +8,13 @@ class Chatbox {
             openButton: document.querySelector('.chatbox__button'),
             chatBox: document.querySelector('.chatbox__support'),
             sendButton: document.querySelector('.send__button')
+
         }
 
         this.state = false;
         this.messages = [];
     }
+
 
     display() {
         const {openButton, chatBox, sendButton} = this.args;
@@ -38,68 +43,45 @@ class Chatbox {
     }
 
 
-
     onSendButton(chatbox) {
+        const textField = chatbox.querySelector('input');
+        const text1 = textField.value;
+        if (!text1) return;
 
-        var textField = chatbox.querySelector('input');
-        let output = ''
-
-        let text1 = textField.value
-        if (text1 === "") {
-            return;
-        }
-
-        let msg1 = {name: "user_uttered", message: text1}
+        const msg1 = {name: 'user_uttered', message: text1};
+        ws.send(text1);
         this.messages.push(msg1);
 
-        fetch('http://localhost:5005/webhooks/rest/webhook', {
-            method: 'POST',
-            body: JSON.stringify({message: text1}),
-            headers: {
-                'Content-Type': 'application/json'
+        const handleMessage = e => {
+            console.log(e)
+            const msg2 = {name: 'bot_uttered', message: e.data};
+            this.messages.push(msg2);
+            this.updateChatText(chatbox);
+            textField.value = '';
+
+            if (e.data === 'Das Wetter in Stuttgart ist:') {
+                const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?id=2825297&appid={API-Key}';
+                fetch(weatherUrl, {method: 'GET', headers: {}})
+                    .then(res => res.json())
+                    .then(data => {
+                        const output = `${data.list[data.list.length - 1].weather[0].description}
+                        Temperatur: ${data.list[data.list.length - 1].main.temp / 100}°C
+                        Gefühlt wie: ${data.list[data.list.length - 1].main.feels_like / 100}°C\n`;
+
+                        const msg3 = {name: 'bot_uttered', message: output};
+                        this.messages.push(msg3);
+                        this.updateChatText(chatbox);
+                    })
+                    .catch(error => console.error('Error', error));
             }
-        }).then(res => {
-            return res.json()
-        })
-            .then(data => {
-
-                output = data[0].text
-                console.log(typeof(data[0].text))
-
-                    console.log(output)
-                  if (output === 'Hey! How are you?') {
-                      fetch("http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=e3b561757bafc55f9075e613caf26f7b", {
-                          method: "GET",
-                          headers: {}
-                      })
-                          .then(res => res.json())
-
-                          .then(data => {
-
-                              output += JSON.stringify(data.list[0].main.temp)
-
-                              let msg2 = {name: "bot_uttered", message: output}
-                      this.messages.push(msg2)
-                      this.updateChatText(chatbox)
-                      textField.value = ''
-
-                          })
-
-
-
-                  }
-            })
-            .catch(error => console.error('Error'))
-
-
-
-
-
-
+            //durch = false;
+            ws.removeEventListener('message', handleMessage);
+        };
+        ws.addEventListener('message', handleMessage);
     }
 
     updateChatText(chatbox) {
-        var html = '';
+        let html = '';
         this.messages.slice().reverse().forEach(function (item, index) {
             if (item.name === "bot_uttered") {
                 html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'

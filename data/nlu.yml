@@ -4,88 +4,80 @@ nlu:
 - intent: greet
   examples: |
     - hey
-    - hello
+    - hallo
     - hi
-    - hello there
-    - good morning
-    - good evening
+    - guten Morgen
+    - guten Abend
     - moin
-    - hey there
+    - hey was geht
     - let's go
     - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
 
 - intent: goodbye
   examples: |
-    - cu
+    - tschüss
     - good by
     - cee you later
     - good night
     - bye
     - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+    - habe ein schönen Tag
+    - aufwiedersehen
+    - cia
+    - bis später
 
 - intent: affirm
   examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+    - Ja
+    - j
+    - natürlich
+    - offensichtlich
+    - das klingt gut
+    - Korrekt
 
 - intent: deny
   examples: |
-    - no
+    - Nein
     - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+    - niemals
+    - Ich denke nicht
+    - Ich mag das nicht
+    - auf keinen Fall
+    - nicht wirklich
 
 - intent: mood_great
   examples: |
-    - perfect
-    - great
+    - perfekt
+    - gut
     - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+    - super
+    - wundervoll
+    - Ich fühle mich gut
+    - Mir geht es gut
+    - sehr gut
+    - Ich rette die Welt
+    - es kann mir nicht besser gehen
 
 - intent: mood_unhappy
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
+    - mein Tag war schrecklich
+    - mir geht es nicht gut
+    - ich bin enttäuscht 
+    - ich bin traurig
+    - mir geht es schlecht
+    - unglücklich
+    - nicht glücklich
+    - nicht gut
+    - nicht sehr gut
 
 - intent: bot_challenge
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - bist du ein Bot?
+    - bist du ein Mensch?
+    - rede ich mit einem Bot?
+    - rede ich zu einem Menschen?
+
+- intent: weather_status
+  examples: |
+    - wie ist das Wetter?
+    - Wie warm ist es heute?
