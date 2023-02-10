@@ -4,6 +4,7 @@ const ws = new WebSocket("ws://localhost:8080");
 class Chatbox {
 
     constructor() {
+
         this.args = {
             openButton: document.querySelector('.chatbox__button'),
             chatBox: document.querySelector('.chatbox__support'),
@@ -37,13 +38,18 @@ class Chatbox {
         // show or hides the box
         if (this.state) {
             chatbox.classList.add('chatbox--active')
+
         } else {
             chatbox.classList.remove('chatbox--active')
         }
     }
 
 
+
+
     onSendButton(chatbox) {
+
+
         const textField = chatbox.querySelector('input');
         const text1 = textField.value;
         if (!text1) return;
@@ -79,8 +85,8 @@ class Chatbox {
 
     getFormatedOutput(data) {
         return `${data.list[data.list.length - 1].weather[0].description}
-                        Temperatur: ${data.list[data.list.length - 1].main.temp / 100}°C
-                        Gefühlt wie: ${data.list[data.list.length - 1].main.feels_like / 100}°C\n`;
+                        Temperatur: ${Math.round(data.list[data.list.length - 1].main.temp) / 100}°C
+                        Gefühlt wie: ${Math.round(data.list[data.list.length - 1].main.feels_like) / 100}°C\n`;
     }
 
     updateChatText(chatbox) {
