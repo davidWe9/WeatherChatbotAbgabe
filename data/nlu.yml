@@ -81,3 +81,4 @@ nlu:
   examples: |
     - wie ist das Wetter?
     - Wie warm ist es heute?
+    - Wetter?

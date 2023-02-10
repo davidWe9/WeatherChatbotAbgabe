@@ -64,9 +64,7 @@ class Chatbox {
                 fetch(weatherUrl, {method: 'GET', headers: {}})
                     .then(res => res.json())
                     .then(data => {
-                        const output = `${data.list[data.list.length - 1].weather[0].description}
-                        Temperatur: ${data.list[data.list.length - 1].main.temp / 100}°C
-                        Gefühlt wie: ${data.list[data.list.length - 1].main.feels_like / 100}°C\n`;
+                        const output = this.getFormatedOutput(data);
 
                         const msg3 = {name: 'bot_uttered', message: output};
                         this.messages.push(msg3);
@@ -74,15 +72,20 @@ class Chatbox {
                     })
                     .catch(error => console.error('Error', error));
             }
-            //durch = false;
             ws.removeEventListener('message', handleMessage);
         };
         ws.addEventListener('message', handleMessage);
     }
 
+    getFormatedOutput(data) {
+        return `${data.list[data.list.length - 1].weather[0].description}
+                        Temperatur: ${data.list[data.list.length - 1].main.temp / 100}°C
+                        Gefühlt wie: ${data.list[data.list.length - 1].main.feels_like / 100}°C\n`;
+    }
+
     updateChatText(chatbox) {
         let html = '';
-        this.messages.slice().reverse().forEach(function (item, index) {
+        this.messages.slice().reverse().forEach(function (item) {
             if (item.name === "bot_uttered") {
                 html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
             } else {
