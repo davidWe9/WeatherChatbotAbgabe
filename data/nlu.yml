@@ -76,6 +76,7 @@ nlu:
     - bist du ein Mensch?
     - rede ich mit einem Bot?
     - rede ich zu einem Menschen?
+    - was kannst du?
 
 - intent: weather_status
   examples: |

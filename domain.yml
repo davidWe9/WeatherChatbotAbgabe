@@ -27,7 +27,7 @@ responses:
   - text: "Tschüss"
 
   utter_iamabot:
-  - text: "Ich bin ein Bot."
+  - text: "Ich bin ein Bot und ich kann dir Informationen über das Wetter geben"
 
   utter_weather:
   - text: "Das Wetter in Stuttgart ist:"
