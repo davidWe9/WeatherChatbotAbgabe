@@ -1,7 +1,8 @@
-const ws = new WebSocket("ws://localhost:8080");
+import {clientconnect, output, setinputText} from "./client.js";
 
 
-class Chatbox {
+
+class Chatbox{
 
     constructor() {
 
@@ -31,7 +32,9 @@ class Chatbox {
         const node = chatBox.querySelector('input');
         node.addEventListener("keyup", ({key}) => {
             if (key === "Enter") {
+
                 this.onSendButton(chatBox)
+
             }
         })
     }
@@ -45,13 +48,13 @@ class Chatbox {
             chatbox.classList.add('chatbox--active')
             if(this.aktive) {
 
-
-                setTimeout(() => {
+            setTimeout(() => {
    let msg = {name: 'bot_uttered', message: 'Hallo'};
+    document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'hidden';
                 this.messages.push(msg);
                 this.updateChatText(chatbox);
 
-                }, 3000)
+            }, 3000)
                 this.aktive = false;
             }
 
@@ -62,26 +65,21 @@ class Chatbox {
         }
     }
 
-
-
-
     onSendButton(chatbox) {
-
-
+document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'visible';
         const textField = chatbox.querySelector('input');
         const text1 = textField.value;
 
         if (!text1) return;
-
         let msg1 = {name: 'user_uttered', message: text1};
-        ws.send(text1);
+        clientconnect(text1)
         this.messages.push(msg1);
 
 
-        const handleMessage = e => {
-        let msg2={};
+    setTimeout(() => {
+            let msg2 = {};
 
-            if (e.data === 'Das Wetter in Stuttgart ist:') {
+            if (output=== 'Das Wetter in Stuttgart ist:') {
 
                 const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?id=2825297&appid=e3b561757bafc55f9075e613caf26f7b';
                 fetch(weatherUrl, {method: 'GET', headers: {}})
@@ -89,40 +87,31 @@ class Chatbox {
                     .then(data => {
                         const output = this.getFormatedTemp(data);
 
-              msg2 = {name: 'bot_uttered', message: output};
+                        msg2 = {name: 'bot_uttered', message: output};
                         this.messages.push(msg2);
                         this.updateChatText(chatbox);
-                         textField.value = '';
+                        textField.value = '';
 
 
                     })
                     .catch(error => console.error('Error', error));
 
 
+            } else {
 
-            }else{
-
-
-             console.log(e)
-             msg2 = {name: 'bot_uttered', message: e.data};
-
-
-            this.messages.push(msg2);
-            this.updateChatText(chatbox);
-            textField.value = '';
+              msg2 = {name: 'bot_uttered', message: output};
+              this.messages.push(msg2);
+              this.updateChatText(chatbox);
+              textField.value = '';
+              document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'hidden';
 
             }
-
-
-            ws.removeEventListener('message', handleMessage);
-        };
-
-        ws.addEventListener('message', handleMessage);
-
-
-
-
+   }, 3000)
+        document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'visible';
     }
+
+
+
 
     getFormatedTemp(data) {
         console.log([data])
@@ -143,13 +132,19 @@ class Chatbox {
 
     updateChatText(chatbox) {
         let html = '';
+
+
+
         this.messages.slice().reverse().forEach(function (item) {
             if (item.name === "bot_uttered") {
+
                 html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
+
             } else {
                 html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
             }
         });
+
 
         const chatmessage = chatbox.querySelector('.chatbox__messages');
         chatmessage.innerHTML = html;
