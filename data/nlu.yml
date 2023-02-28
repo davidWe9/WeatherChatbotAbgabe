@@ -83,3 +83,11 @@ nlu:
     - wie ist das Wetter?
     - Wie warm ist es heute?
     - Wetter?
+
+- intent: weather_forecastTomorrow
+  examples: |
+    - Wie wird das Wetter morgen?
+    - Wie warm ist es morgen?
+    - morgen?
+    - Wetter morgen?
+    - morgen Wetter?

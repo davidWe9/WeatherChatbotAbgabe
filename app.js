@@ -10,9 +10,6 @@ class Chatbox{
             openButton: document.querySelector('.chatbox__button'),
             chatBox: document.querySelector('.chatbox__support'),
             sendButton: document.querySelector('.send__button'),
-
-
-
         }
 
         this.state = false;
@@ -49,7 +46,8 @@ class Chatbox{
             if(this.aktive) {
 
             setTimeout(() => {
-   let msg = {name: 'bot_uttered', message: 'Hallo'};
+   let msg = {name: 'bot_uttered', message: 'Hey, ich bin Sam 😎' +'<br>'+
+           'Frag mich etwas über das Wetter?'};
     document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'hidden';
                 this.messages.push(msg);
                 this.updateChatText(chatbox);
@@ -79,15 +77,19 @@ document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility 
     setTimeout(() => {
             let msg2 = {};
 
-            if (output=== 'Das Wetter in Stuttgart ist:') {
-
-                const weatherUrl = 'http://api.openweathermap.org/data/2.5/forecast?id=2825297&appid=e3b561757bafc55f9075e613caf26f7b';
+            if (output=== 'Das Wetter in Stuttgart ist:'|| output=== 'Das Wetter wird morgen:') {
+                let outputChat;
+                const weatherUrl =
+                    'http://api.openweathermap.org/data/2.5/forecast?id=2825297&appid=e3b561757bafc55f9075e613caf26f7b&lang=de';
                 fetch(weatherUrl, {method: 'GET', headers: {}})
                     .then(res => res.json())
                     .then(data => {
-                        const output = this.getFormatedTemp(data);
-
-                        msg2 = {name: 'bot_uttered', message: output};
+                        if(output==='Das Wetter wird morgen:'){
+                         outputChat = this.getFormatedTempTomorrow(data);
+                        }else{
+                         outputChat = this.getFormatedTempCurrent(data);
+                        }
+                        msg2 = {name: 'bot_uttered', message: outputChat};
                         this.messages.push(msg2);
                         this.updateChatText(chatbox);
                         textField.value = '';
@@ -96,6 +98,7 @@ document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility 
                     })
                     .catch(error => console.error('Error', error));
 
+            document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'hidden';
 
             } else {
 
@@ -113,21 +116,21 @@ document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility 
 
 
 
-    getFormatedTemp(data) {
+    getFormatedTempCurrent(data) {
         console.log([data])
         return `In Stuttgart sind es ${Math.round((data.list[0].main.temp)-273.15)}°C
-                        Gefühlt wie: ${Math.round((data.list[0].main.feels_like)-273.15)}°C\n`;
+                        Gefühlt wie: ${Math.round((data.list[0].main.feels_like)-273.15)}°C`+`<br>`
+            +this.getDescription(data, 0)+`.`;
     }
 
-
-
-
-        getFormatedWeather(data) {
+      getFormatedTempTomorrow(data) {
         console.log([data])
-        return `In Stuttgart sind es: ${data.list[0].weather[0].description}
-        
-                        Temperatur: ${Math.round((data.list[0].main.temp)-273.15)}°C
-                        Gefühlt wie: ${Math.round((data.list[0].main.feels_like)-273.15)}°C\n`;
+        return `In Stuttgart wird es morgen ${Math.round((data.list[8].main.temp_max)-273.15)}°C`+'<br>'+
+            this.getDescription(data,8)+`.`;
+    }
+
+    getDescription(data, time){
+        return `(${(data.list[time].weather[0].description).toLowerCase()})`;
     }
 
     updateChatText(chatbox) {

@@ -9,6 +9,7 @@ intents:
   - mood_unhappy
   - bot_challenge
   - weather_status
+  - weather_forecastTomorrow
 
 responses:
   utter_greet:
@@ -31,6 +32,9 @@ responses:
 
   utter_weather:
   - text: "Das Wetter in Stuttgart ist:"
+
+  utter_weatherTomorrow:
+    - text: "Das Wetter wird morgen:"
 
 session_config:
   session_expiration_time: 60

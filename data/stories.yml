@@ -34,3 +34,8 @@ stories:
   steps:
     - intent: weather_status
     - action: utter_weather
+
+- story: gebe das Wetter morgen aus
+  steps:
+    - intent: weather_forecastTomorrow
+    - action: utter_weatherTomorrow
