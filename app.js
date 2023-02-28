@@ -72,6 +72,8 @@ document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility 
         let msg1 = {name: 'user_uttered', message: text1};
         clientconnect(text1)
         this.messages.push(msg1);
+        this.updateChatText(chatbox);
+        textField.value = '';
 
 
     setTimeout(() => {
