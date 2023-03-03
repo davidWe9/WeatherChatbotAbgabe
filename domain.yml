@@ -10,6 +10,7 @@ intents:
   - bot_challenge
   - weather_status
   - weather_forecastTomorrow
+  - weather_forecastnextWeek
 
 responses:
   utter_greet:
@@ -35,6 +36,9 @@ responses:
 
   utter_weatherTomorrow:
     - text: "Das Wetter wird morgen:"
+
+  utter_weathernextWeek:
+    - text: "Das Wetter wird nächste Woche:"
 
 session_config:
   session_expiration_time: 60

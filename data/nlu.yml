@@ -91,3 +91,11 @@ nlu:
     - morgen?
     - Wetter morgen?
     - morgen Wetter?
+
+- intent: weather_forecastnextWeek
+  examples: |
+    - Wie wird das Wetter kommende Woche?
+    - kommende Woche?
+    - nächste Woche?
+    - Wetter nächste Woche?
+    - nächste Woche Wetter?

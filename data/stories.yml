@@ -39,3 +39,8 @@ stories:
   steps:
     - intent: weather_forecastTomorrow
     - action: utter_weatherTomorrow
+
+- story: gebe das Wetter nächste Woche aus
+  steps:
+    - intent: weather_forecastnextWeek
+    - action: utter_weathernextWeek
