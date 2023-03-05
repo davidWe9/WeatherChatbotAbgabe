@@ -1,3 +1,4 @@
+/*@author Lukas Hüttl, Simon Briem*/
 * {
     box-sizing: border-box;
     margin: 0;
@@ -88,26 +89,6 @@ nav ul li a{
 }
 
 
-/* .text-container a{
-    text-decoration: none;
-    background: #1E90FF;
-    padding: 14px 80px;
-    display: inline-block;
-    color: #fff;
-    font-size: 18px;
-    margin-top: 30px;
-    border-radius: 30px;
-    margin-left: 5px;
-} */
-
-.buttonstyle{
-    margin-top: 0.1%;
-    margin-left: 49%;
-    /* display: flex;
-    align-items: center;
-    text-align: center; */
-
-}
 
 #btn btn-primary btn-lg{
     /* padding: 50px 50px; */
@@ -124,19 +105,6 @@ nav ul li a{
     align-items: right;
 }
 
-/* .buttonstyle{
-    height: 60px;
-    width: 35%;
-    border: none;
-    outline: none;
-    background-color: #1E90FF;
-    color: white;
-    font-weight: 700;
-    border-radius: 60px;
-    margin-bottom: 20%;
-
-
-} */
 
 .weather-widget{
     margin-top: 17%;
@@ -238,7 +206,6 @@ nav ul li a{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     padding: 15px 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -256,6 +223,7 @@ nav ul li a{
 .chatbox__heading--header {
     font-size: 1.2rem;
     color: white;
+    margin-left: 15px;
 }
 
 .chatbox__description--header {
@@ -394,5 +362,31 @@ nav ul li a{
 }
 
 
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 10px #FFD700;
+  }
+  100% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+}
+
+.chatbox__button {
+  animation: glow 2s ease-in-out 2;
+}
+
+.chatbox__button.stop {
+  animation: none;
+}
+
+.chatbox__button button:hover{
+transform: translateY(-5px);
+}
 
 

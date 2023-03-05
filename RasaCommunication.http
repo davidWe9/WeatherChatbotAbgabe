@@ -1,9 +1,0 @@
-POST http://localhost:5005/webhooks/rest/webhook
-Content-Type: application/json
-
-{
-"sender": "test_user",
-"message": "Hello"
-}
-
-

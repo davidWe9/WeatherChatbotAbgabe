@@ -1,6 +1,6 @@
-import {clientconnect, output, setinputText} from "./client.js";
+import {clientconnect, output, setinputText} from "./websocket/client.js";
 import {OpenWeather, WeatherDataForecast, WeatherDataToday, WeatherData7days} from "./openWeather.js";
-
+// @author David Wentsch, Simon Briem, Lukas Hüttl
 OpenWeather.setDataForecast();
 OpenWeather.setWeatherDataToday();
 
@@ -46,7 +46,7 @@ class Chatbox{
         if (this.state) {
             chatbox.classList.add('chatbox--active')
             if(this.aktive) {
-
+        //first message
             setTimeout(() => {
    let msg = {name: 'bot_uttered', message: 'Hey, ich bin Sam 😎' +'<br>'+
            'Frag mich etwas über das Wetter'};
