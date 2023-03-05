@@ -54,7 +54,7 @@ class Chatbox{
                 this.messages.push(msg);
                 this.updateChatText(chatbox);
 
-            }, 3000)
+            }, 2000)
                 this.aktive = false;
             }
 
@@ -91,7 +91,7 @@ class Chatbox{
 
             document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'hidden';
 
-   }, 3000)
+   }, 2000)
         document.getElementsByClassName('typingIndicatorContainer')[0].style.visibility = 'visible';
     }
 
